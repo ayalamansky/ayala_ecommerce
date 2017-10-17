@@ -114,4 +114,18 @@ view: order_items {
     value_format_name: usd
     drill_fields: [id, orders.id, products.id, products.retail_price]
   }
+
+  measure: first_order_date {
+    type: date
+    sql: min(${orders.created_date}) ;;
+    convert_tz: no
+    drill_fields: [id, users.full_name, users.id]
+  }
+
+  measure: last_order_date {
+    type: date
+    sql: max(${orders.created_date}) ;;
+    convert_tz: no
+    drill_fields: [id, users.full_name, users.id]
+  }
 }
