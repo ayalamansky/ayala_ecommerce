@@ -3,26 +3,14 @@ connection: "thelook"
 # include all the views
 include: "*.view"
 
-# include all the dashboards
-include: "*.dashboard"
-
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
+datagroup: order_items_datagroup {
+  max_cache_age: "4 hours"
+  sql_trigger: select max(id) from order_items ;;
 }
 
 explore: order_items {
+  persist_with: order_items_datagroup
+  sql_always_where: ${orders.created_date} <= curdate();;
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
@@ -42,32 +30,44 @@ explore: order_items {
   }
 
   join: users {
+    view_label: "Customers"
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-}
 
-explore: orders {
-  join: users {
+  join: user_data {
     type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
-    relationship: many_to_one
+    sql_on: ${users.id} = ${user_data.user_id};;
+    relationship: one_to_one
   }
 }
 
-explore: products {}
-
-explore: schema_migrations {}
-
-explore: user_data {
-  join: users {
-    type: left_outer
-    sql_on: ${user_data.user_id} = ${users.id} ;;
-    relationship: many_to_one
+explore: products {
+  always_filter: {
+    filters: {
+      field: category
+      value: "Sweaters"
+    }
   }
 }
 
-explore: users {}
+explore: users {
+  join: user_data {
+    type: left_outer
+    sql_on: ${users.id} = ${user_data.user_id};;
+    relationship: one_to_one
+    fields: [total_num_orders, is_high_value]
+  }
+}
 
-explore: users_nn {}
+explore: users_high_value {
+  from: users
+  always_join: [user_data]
+  join: user_data {
+    type: inner
+    sql_on: ${users_high_value.id} = ${user_data.user_id} and ${user_data.is_high_value};;
+    relationship: one_to_one
+    fields: [total_num_orders]
+  }
+}

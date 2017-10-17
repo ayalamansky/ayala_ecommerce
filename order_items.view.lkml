@@ -38,8 +38,63 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: sales_price_tier {
+    type: string
+    case: {
+      when: {
+        sql: ${sale_price} < 50 ;;
+        label: "Discount"
+      }
+      when: {
+        sql: ${sale_price} >= 50 and ${sale_price} < 300 ;;
+        label: "Regular"
+      }
+      when: {
+        sql: ${sale_price} >= 300 ;;
+        label: "Luxury"
+      }
+      else: "Unknown"
+    }
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    drill_fields: [id, inventory_items.id, orders.id, sale_price]
+  }
+
+  measure: total_sale_price_youth {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+    field: users.age_tier
+    value: "10 to 19"
+    }
+    drill_fields: [id, inventory_items.id, orders.id, sale_price]
+    label: "Total Sale Price for Youth"
+    description: "Total sale price for people aged 10 to 19"
+  }
+
+  measure: percent_sales_youth {
+    type: number
+    sql: 1.0*${total_sale_price_youth}/nullif(${total_sale_price},0) ;;
+    value_format_name: percent_2
+    drill_fields: [id, inventory_items.id, orders.id, users.full_name, users.age_tier, sale_price]
+    label: "Youth's Percent of Total Sales"
+    description: "Percent of sales attributed to 10-19 year olds"
+  }
+
+  measure: total_margin {
+    type: number
+    sql: ${total_sale_price} - ${inventory_items.total_cost} ;;
+    value_format_name: usd
+    drill_fields: [id, inventory_items.id, orders.id, sale_price, inventory_items.cost]
   }
 }

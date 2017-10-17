@@ -12,15 +12,25 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [0,10,20,30,40,50,60,70,80,90]
+    style: integer
+    sql: ${age} ;;
+    drill_fields: [age]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    drill_fields: [zip]
   }
 
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [state]
   }
 
   dimension_group: created {
@@ -57,9 +67,17 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: concat(${first_name},' ',${last_name}) ;;
+    label: "Name"
+    description: "User's full name"
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    drill_fields: [city]
   }
 
   dimension: zip {

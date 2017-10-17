@@ -23,8 +23,16 @@ view: user_data {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: is_high_value {
+    type: yesno
+    sql: ${total_num_orders} >= 15 ;;
+    label: "High-Value Customer"
+    description: "User has more than 15 lifetime orders"
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.last_name, users.first_name, users.id]
   }
+
 }
