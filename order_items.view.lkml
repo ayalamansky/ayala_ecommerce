@@ -97,4 +97,21 @@ view: order_items {
     value_format_name: usd
     drill_fields: [id, inventory_items.id, orders.id, sale_price, inventory_items.cost]
   }
+
+  ## when summing retail_price of products in more granular order_items, need sum_distinct
+  measure: total_price_distinct {
+    type: sum_distinct
+    sql_distinct_key: ${products.id} ;;
+  sql: ${products.retail_price} ;;
+  value_format_name: usd
+  drill_fields: [id, orders.id, products.id, products.retail_price]
+  }
+
+  ## below is incorrect
+  measure: total_price_not_distinct {
+    type: sum
+    sql: ${products.retail_price} ;;
+    value_format_name: usd
+    drill_fields: [id, orders.id, products.id, products.retail_price]
+  }
 }
