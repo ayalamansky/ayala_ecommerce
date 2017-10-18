@@ -5,7 +5,7 @@ include: "*.view"
 
 datagroup: order_items_datagroup {
   max_cache_age: "4 hours"
-  sql_trigger: select max(id) from order_items ;;
+  sql_trigger: select max(created_date) from order_items ;;
 }
 
 explore: order_items {
@@ -43,14 +43,16 @@ explore: order_items {
   }
 }
 
-explore: products {
+explore: orders {
   always_filter: {
     filters: {
-      field: category
-      value: "Sweaters"
+      field: status
+      value: "Complete"
     }
   }
 }
+
+explore: products {}
 
 explore: users {
   join: user_data {
