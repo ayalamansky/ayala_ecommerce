@@ -5,7 +5,7 @@ include: "*.view"
 
 datagroup: order_items_datagroup {
   max_cache_age: "4 hours"
-  sql_trigger: select curdate() from order_items ;;
+  sql_trigger: SELECT CURDATE() ;;
 }
 
 explore: order_items {
@@ -59,7 +59,7 @@ explore: users {
     type: left_outer
     sql_on: ${users.id} = ${user_data.user_id};;
     relationship: one_to_one
-    fields: [total_num_orders, is_high_value]
+    fields: [total_num_orders, is_high_value, first_order_date, last_order_date]
   }
 }
 
@@ -70,6 +70,6 @@ explore: users_high_value {
     type: inner
     sql_on: ${users_high_value.id} = ${user_data.user_id} and ${user_data.is_high_value};;
     relationship: one_to_one
-    fields: [total_num_orders]
+    fields: [total_num_orders, first_order_date, last_order_date]
   }
 }
