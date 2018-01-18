@@ -30,7 +30,66 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
-    drill_fields: [state]
+    link: {
+      url: "google.com"
+      label: "google1"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google19"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google18"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google17"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google15"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google16"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google13"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google11"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google12"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google14"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google3"
+    }
+
+    link: {
+      url: "google.com"
+      label: "google2"
+    }
+    drill_fields: [state, city, zip, age, email, gender]
   }
 
   dimension_group: created {
