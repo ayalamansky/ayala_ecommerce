@@ -60,14 +60,25 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
+    value_format: "[{{ _user_attributes['brand'] }} == 'Canada Goose']0.00,,\"M\";[>=1000]0.00,\"K\";0"
+  }
+
+  measure: total_sale_mod_price {
+    type: sum
+    sql: ${sale_price} ;;
+#     value_format_name: usd
+    value_format: "[{{ _user_attributes['brand'] }} = 'Canada Goose']0.00,,\"M\";[>=1000]0.00,\"K\";0"
+    drill_fields: [id, inventory_items.id, orders.id, sale_price]
   }
 
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+#     value_format: "[{{ _user_attributes['brand'] }} = 'Canada Goose']0.00,,\"M\";[>=1000]0.00,\"K\";0"
     drill_fields: [id, inventory_items.id, orders.id, sale_price]
   }
+
 
   measure: total_sale_price_youth {
     type: sum
@@ -96,6 +107,42 @@ view: order_items {
     sql: ${total_sale_price} - ${inventory_items.total_cost} ;;
     value_format_name: usd
     drill_fields: [id, inventory_items.id, orders.id, sale_price, inventory_items.cost]
+  }
+
+  parameter: cost_reduction {
+    type: unquoted
+    allowed_value: {
+      label: "5%"
+      value: ".05"
+    }
+    allowed_value: {
+      label: "10%"
+      value: ".1"
+    }
+    allowed_value: {
+      label: "15%"
+      value: ".15"
+    }
+  }
+
+  dimension: profit {
+    type: number
+    sql: {% if cost_reduction._parameter_value == blank %}
+        ${sale_price} - ${inventory_items.cost}
+        {% else %}
+        ${sale_price} - (${inventory_items.cost} *( 1 - {% parameter cost_reduction %}))
+        {% endif %};;
+  }
+
+  measure: total_profit  {
+    type: sum
+    value_format_name: usd_0
+    sql: ${profit} ;;
+  }
+
+  dimension: cost_reduction_value{
+    type: string
+    sql: {{ cost_reduction._parameter_value }} ;;
   }
 
   ## when summing retail_price of products in more granular order_items, need sum_distinct

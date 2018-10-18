@@ -10,6 +10,12 @@ datagroup: order_items_datagroup {
 
 explore: order_items {
   persist_with: order_items_datagroup
+  always_filter: {
+    filters: {
+      field: products.brand
+      value: "{{ _user_attributes['brand'] }}"
+    }
+  }
   sql_always_where: ${orders.created_date} <= curdate();;
   join: inventory_items {
     type: left_outer
