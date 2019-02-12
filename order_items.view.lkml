@@ -167,13 +167,13 @@ view: order_items {
     sql: ${id} ;;
     html: <div style="font-family:'CentraleSansRnd', 'museo-sans-rounded';background-color:#ffffff;color:#4d4d4f; font-size:10pt;font-weight:300;padding:50px;">
           <table width=100%;><tr>
-            <td style="text-align:left;vertical-align:top;">
+            <td style="text-align:left;vertical-align:bottom;">
               <img src="https://wwwstatic-a.lookercdn.com/homepage/new_home/looker.svg"/>
             </td>
-            <td style="text-align:center;vertical-align:top;">
+            <td style="text-align:center;">
               <span style='font-weight:bold'>Executive Dashboard</span>
             </td>
-            <td style="width:200px;text-align:right;vertical-align:top;">
+            <td style="width:200px;text-align:right;">
               <span style='font-weight:bold'>Feb 12 2019</span>
             </td>
           </tr></table>
@@ -186,10 +186,10 @@ view: order_items {
     sql: ${id} ;;
     html: <div style="font-family:'CentraleSansRnd', 'museo-sans-rounded';background-color:#ffffff;color:#4d4d4f; font-size:10pt;font-weight:300;padding:50px;">
           <table width=100%;><tr>
-            <td style="text-align:left;vertical-align:bottom;">
+            <td style="text-align:left;">
               <span style='font-weight:bold'>&#169; 2019 Looker, Inc. CONFIDENTIAL AND PROPRIETARY</span>
             </td>
-            <td style="width:200px;text-align:right;vertical-align:bottom;">
+            <td style="width:200px;text-align:right;">
               <span style='font-weight:bold'>1</span>
             </td>
           </tr></table>
