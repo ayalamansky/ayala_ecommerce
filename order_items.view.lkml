@@ -170,10 +170,10 @@ view: order_items {
             <td style="text-align:left;vertical-align:bottom;">
               <img src="https://wwwstatic-a.lookercdn.com/homepage/new_home/looker.svg"/>
             </td>
-            <td style="text-align:center;vertical-align:bottom;">
+            <td style="text-align:center;vertical-align:top;">
               <span style='font-weight:bold'>Executive Dashboard</span>
             </td>
-            <td style="width:200px;text-align:right;vertical-align:bottom;">
+            <td style="width:200px;text-align:right;vertical-align:top;">
               <span style='font-weight:bold'>Feb 12 2019</span>
             </td>
           </tr></table>
