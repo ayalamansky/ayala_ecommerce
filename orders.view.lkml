@@ -15,9 +15,9 @@ view: orders {
     sql: {% date_start test_time %} ;;
   }
 
-  dimension: test_output_2 {
-    sql: {% date_start test_time_2_raw %} ;;
-  }
+#   dimension: test_output_2 {
+#     sql: {% date_start test_time_2_raw %} ;;
+#   }
 
   dimension: id {
     primary_key: yes

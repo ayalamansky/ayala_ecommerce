@@ -168,7 +168,7 @@ view: order_items {
     html: <div style="font-family:'CentraleSansRnd', 'museo-sans-rounded';background-color:#ffffff;color:#4d4d4f; font-size:10pt;font-weight:300;padding:50px;">
           <table width=100%;><tr>
             <td style="text-align:left;">
-              <img src="https://wwwstatic-a.lookercdn.com/homepage/new_home/looker.svg"/>
+              <img src="https://wwwstatic-a.lookercdn.com/homepage/new_home/looker.svg" height="50"/>
             </td>
             <td style="text-align:center;">
               <span style='font-weight:bold'>Executive Dashboard</span>

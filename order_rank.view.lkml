@@ -1,11 +1,11 @@
 include: "orders.view.lkml"
-explore: orders_test {
-  from: orders
-  view_name: orders
-  join: orders_with_ranking {
-    sql_on: ${orders.id} = ${orders_with_ranking.order_id} ;;
-  }
-}
+# explore: orders_test {
+#   from: orders
+#   view_name: orders
+#   join: orders_with_ranking {
+#     sql_on: ${orders.id} = ${orders_with_ranking.order_id} ;;
+#   }
+# }
 
 explore: orders_with_ranking {}
 view: orders_with_ranking {
