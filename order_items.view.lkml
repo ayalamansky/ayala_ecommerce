@@ -167,7 +167,7 @@ view: order_items {
     sql: ${id} ;;
     html: <div style="font-family:'CentraleSansRnd', 'museo-sans-rounded';background-color:#ffffff;color:#4d4d4f; font-size:10pt;font-weight:300;padding:50px;">
           <table width=100%;><tr>
-            <td style="text-align:left;vertical-align:bottom;">
+            <td style="text-align:left;vertical-align:top;">
               <img src="https://wwwstatic-a.lookercdn.com/homepage/new_home/looker.svg"/>
             </td>
             <td style="text-align:center;vertical-align:top;">
